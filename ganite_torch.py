@@ -178,22 +178,4 @@ def ganite_torch(train_x, train_t, train_y, test_x, train_potential_y, test_pote
     torch.save(inference_net.state_dict(), i_save_path)
 
     test_y_hat = inference_net(test_x).cpu().detach().numpy()
-
-
-    # 保存 test_y_hat
-    os.makedirs(f"results/{name}/ITE", exist_ok=True)
-    np.save(f"results/{name}/test_y_hat.npy", test_y_hat)
-
-    # 计算 ITE
-    ITE = test_y_hat[:, 1] - test_y_hat[:, 0]
-    np.save(f"results/{name}/ITE/ITE.npy", ITE)
-
-    # 如果有真实潜在结果 test_potential_y，可以算 PEHE
-    if test_potential_y is not None:
-        PEHE_value = np.sqrt(np.mean((test_y_hat[:, 1] - test_y_hat[:, 0] - 
-                                      (test_potential_y[:, 1] - test_potential_y[:, 0]))**2))
-        print(f"PEHE: {PEHE_value}")
-        # 可选择保存
-        np.save(f"results/{name}/ITE/PEHE.npy", np.array([PEHE_value]))
-
-    return test_y_hat, ITE  # 这行与函数体内的其他代码对齐
+    return test_y_hat
