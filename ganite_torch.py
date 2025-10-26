@@ -179,9 +179,6 @@ def ganite_torch(train_x, train_t, train_y, test_x, train_potential_y, test_pote
 
     test_y_hat = inference_net(test_x).cpu().detach().numpy()
 
-    
-    import os
-    import numpy as np
 
     # 保存 test_y_hat
     os.makedirs(f"results/{name}/ITE", exist_ok=True)
